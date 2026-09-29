@@ -1,6 +1,6 @@
 # Testing Inventory Slot Reservations
 
-The tests described here were run on Linux in a **separate copy** of the game binaries and Proton prefix, with the game's audio stream muted. No test save was copied back to the real prefix. The executable tests and helpers are in this directory; the test-only UE4SS F-key diagnostics used during the earlier live run were appended **only to the isolated copy** of `Scripts/main.lua`, not to the shipped mod. Live checks can also be performed manually as described below. This procedure is Linux-specific; Windows users can perform the manual scenarios on a backed-up test save.
+The tests described here cover the **current single-player implementation**, not the mod's intended long-term scope. Multiplayer behavior has not yet been implemented or tested. The tests were run on Linux in a **separate copy** of the game binaries and Proton prefix, with the game's audio stream muted. No test save was copied back to the real prefix. The executable tests and helpers are in this directory; the test-only UE4SS F-key diagnostics used during the earlier live run were appended **only to the isolated copy** of `Scripts/main.lua`, not to the shipped mod. Live checks can also be performed manually as described below. This procedure is Linux-specific; Windows users can perform the manual scenarios on a backed-up test save.
 
 ## Automated Lua checks (no game required)
 

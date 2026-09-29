@@ -1,0 +1,15 @@
+# Local game and Proton test copies (never commit game files or saves).
+/game/
+/compatdata/
+/selftest/
+/tests/captures/
+*.sav
+
+# Generated logs and compiled Lua bytecode.
+*.log
+*.luac
+
+# Editor/OS leftovers.
+*~
+*.swp
+.DS_Store

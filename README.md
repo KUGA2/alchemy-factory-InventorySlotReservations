@@ -1,6 +1,6 @@
 # Inventory Slot Reservations
 
-Experimental single-player UE4SS Lua mod for **Alchemy Factory**. Reserve player-inventory slots for particular item types, then fill **only those slots** from the closed chest you are looking at. The game performs the transfers and applies its native item-specific stack limits.
+Experimental UE4SS Lua mod for **Alchemy Factory**. Reserve player-inventory slots for particular item types, then fill **only those slots** from the closed chest you are looking at. The game performs the transfers and applies its native item-specific stack limits. **Current implementation and testing cover single-player only; multiplayer support is a goal, not yet implemented or verified.**
 
 ## Use
 
@@ -50,12 +50,12 @@ Alchemy Factory/
 
 1. **Windows:** Install UE4SS in `AlchemyFactory/Binaries/Win64/` according to its instructions. Copy this repository's entire `InventorySlotReservations` folder into `AlchemyFactory/Binaries/Win64/ue4ss/Mods/`; keep the `Scripts` directory intact.
 2. **Linux / Steam Proton:** Install UE4SS at the same **Windows game binary path** inside the Steam game directory, not in the Linux Proton binaries. Copy the mod folder to the same `ue4ss/Mods/` location. If using the tested `dwmapi.dll` proxy, add a `dwmapi` **native, builtin** override to this game's Proton prefix (e.g. in `winecfg` → Libraries), or set the game's Steam launch options to `WINEDLLOVERRIDES="dwmapi=n,b" %command%`. Only do this for Alchemy Factory; don't change a global Wine prefix. The local Steam AppID is `3669570`, so the default prefix is `steamapps/compatdata/3669570/pfx/`. If your UE4SS package uses a different proxy, follow its instructions instead.
-3. In `ue4ss/Mods/mods.txt`, set/add **`InventorySlotReservations : 1`** (one enabled entry). Restart the game. Check `ue4ss/UE4SS.log` for `Loaded experimental single-player reservations; use key: N`. If another mod registers N, change `Scripts/config.lua` and restart.
+3. In `ue4ss/Mods/mods.txt`, set/add **`InventorySlotReservations : 1`** (one enabled entry). Restart the game. Check `ue4ss/UE4SS.log` for `Loaded experimental single-player reservations; use key: N` (the current implementation's log message). If another mod registers N, change `Scripts/config.lua` and restart.
 
 To uninstall, disable the entry in `mods.txt` or remove only `Mods/InventorySlotReservations/`, then restart. Remove UE4SS/proxy/Proton override **only if you installed them for this mod and no other mod needs them**. This repository does not bundle UE4SS or game files.
 
 ## Scope and safety
 
-The mod calls the native `TryExchangeInventorySlot` with a specific reserved destination, checks both inventories after each asynchronous exchange, and restores a dropped native filter without moving items. It never performs a post-transfer rollback. It stops if another slot changes unexpectedly. A game's UI sort button is disabled, **not** sorting invoked directly by another mod. Multiplayer, other chest types, concurrent inventory changes, future game builds, and every item's stack maximum remain unverified; do not treat this as production-safe.
+The mod calls the native `TryExchangeInventorySlot` with a specific reserved destination, checks both inventories after each asynchronous exchange, and restores a dropped native filter without moving items. It never performs a post-transfer rollback. It stops if another slot changes unexpectedly. The game's UI sort button is disabled, **not** sorting invoked directly by another mod. Multiplayer support still needs implementation (including authority/synchronization) and testing; other chest types, concurrent inventory changes, future game builds, and every item's stack maximum remain unverified. Do not treat this as production-safe.
 
 For test setup, muted isolated-game launch, screenshots, save preparation, test commands and observed results, see [`tests/TESTING.md`](tests/TESTING.md).
