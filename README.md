@@ -62,7 +62,7 @@ The mod calls the native `TryExchangeInventorySlot` with a specific reserved des
 
 For test setup, muted isolated-game launch, screenshots, save preparation, test commands and observed results, see [`tests/TESTING.md`](tests/TESTING.md).
 For creating release ZIPs and publishing tagged GitHub releases, see [`tests/RELEASING.md`](tests/RELEASING.md).
-The mod also has a [Nexus Mods listing](https://www.nexusmods.com/alchemyfactory/mods/26); see its Files tab for the currently available Nexus download.
+The mod also has a [Nexus Mods listing](https://www.nexusmods.com/alchemyfactory/mods/26); its download becomes public once the draft page is published there.
 
 ## License
 
