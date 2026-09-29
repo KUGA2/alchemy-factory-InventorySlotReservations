@@ -1,0 +1,9 @@
+# Contributor notes
+
+- Keep code, comments, documentation, test names, and user-facing mod messages in English.
+- This is an experimental UE4SS Lua mod. `Scripts/main.lua` is the shipped entry point; `Scripts/chestpull.lua` plans/verifies targeted exchanges; `Scripts/slot_binding.lua` handles live slot structs. `Scripts/reservation_policy.lua` is tested but **not wired into the game**. Do not claim otherwise.
+- Preserve native slot filters, the circular `Border_Liquid` marker, and the native stack limit. Pull only from the **looked-at closed chest** into matching reserved player slots. N over a hovered player slot toggles its reservation; N with the chest UI open must not pull.
+- No post-transfer rollback, no custom sort, no M binding. Keep the native sort UI button disabled while reservations exist. Verify both inventories between asynchronous native `TryExchangeInventorySlot` calls; stop on unexpected changes rather than repairing unrelated slots.
+- Before changes, back up real saves and installed files. Develop/test in an isolated game copy and Proton prefix; never copy test saves into the real prefix. Keep game audio muted during live tests, including after restarts. The test setup, scripts, screenshots, and validation checklist are in [`tests/TESTING.md`](tests/TESTING.md).
+- Test-only UE4SS keybinds/diagnostics belong **only in the isolated game copy**, never in shipped `Scripts/main.lua`. Run all Lua tests plus Lua syntax/JSON checks and perform an in-game smoke test when behavior changes. Document observed evidence separately from untested assumptions.
+- Keep player-facing use/installation instructions in `README.md`, reproducible test procedures in `tests/TESTING.md`, and avoid machine-specific paths in shipped code. Do not overwrite user changes, installed mods, or saves without explicit approval.

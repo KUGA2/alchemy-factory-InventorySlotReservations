@@ -1,0 +1,9 @@
+{
+  "id": "alchemyfactory.inventory-slot-reservations",
+  "name": "Inventory Slot Reservations",
+  "version": "0.20.0",
+  "author": "OpenCode",
+  "description": "Experimental player slot reservations with closed-chest pull and Take All filtering.",
+  "type": "lua",
+  "tags": ["alchemy-factory", "ue4ss", "inventory", "qol"]
+}
