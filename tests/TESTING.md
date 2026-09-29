@@ -63,7 +63,9 @@ tests/scripts/screenshot-linux.sh /tmp/closed-chest.png
 tests/scripts/screenshot-linux.sh /tmp/open-inventory.png
 ```
 
-The helper discovers a uniquely named Gamescope node using `pw-dump`, then captures one PNG frame with `gst-launch-1.0`; if several matches exist, pass the node ID as a second argument. Check `pw-dump` if no node is found. For an X11/Xvfb run (not Gamescope), `DISPLAY=:99 import -window root /tmp/frame.png` is an alternative if ImageMagick is installed. You can also use the desktop's normal screenshot shortcut for a visible game. To make a GIF, capture a sequence of PNGs and encode with an image tool (e.g. `ffmpeg -framerate 5 -i 'frame-%03d.png' -vf 'fps=5,scale=800:-1:flags=lanczos' demo.gif`); never present still screenshots as transfer proof without checking the inventories/log. The README uses two cropped stills from the isolated run, not a GIF.
+The helper discovers a uniquely named Gamescope node using `pw-dump`, then captures one PNG frame with `gst-launch-1.0`; if several matches exist, pass the node ID as a second argument. Check `pw-dump` if no node is found. For an X11/Xvfb run (not Gamescope), `DISPLAY=:99 import -window root /tmp/frame.png` is an alternative if ImageMagick is installed. You can also use the desktop's normal screenshot shortcut for a visible game. To make a GIF, capture a sequence of PNGs and encode with an image tool (e.g. `ffmpeg -framerate 5 -i 'frame-%03d.png' -vf 'fps=5,scale=800:-1:flags=lanczos' demo.gif`); never present still screenshots as transfer proof without checking the inventories/log. The README uses cropped PNG stills from the isolated run, not a GIF.
+
+Run `python3 tests/test_gallery.py` to verify that every image in `images/` is a PNG below 8 MiB. The checked-in screenshots were cropped from isolated-game captures; `images/title.png` is separate title artwork.
 
 ## Manual in-game scenarios and expected results
 

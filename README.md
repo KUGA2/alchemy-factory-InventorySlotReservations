@@ -1,5 +1,7 @@
 # Inventory Slot Reservations
 
+![Inventory Slot Reservations title artwork](images/title.png)
+
 Experimental UE4SS Lua mod for **Alchemy Factory**. Reserve player-inventory slots for particular item types, then fill **only those slots** from the closed chest you are looking at. The game performs the transfers and applies its native item-specific stack limits. **Current implementation and testing cover single-player only; multiplayer support is a goal, not yet implemented or verified.**
 
 ## Use
@@ -10,11 +12,11 @@ Experimental UE4SS Lua mod for **Alchemy Factory**. Reserve player-inventory slo
 
 Edit `Scripts/config.lua` to change `toggleKey = "N"`, then restart the game. The same key performs both actions. Reservations work with arbitrary item IDs, not a fixed list of ingredients.
 
-![A reserved potion stack has a circular marker next to an open chest](images/reserved-slot.webp)
+![A reserved potion stack has a circular marker next to an open chest](images/reserved-slot.png)
 
 *The marked player slot is reserved. This screenshot shows the **open** chest inventory, where N does not pull.*
 
-![Closed chest with the E and G interaction prompt](images/closed-chest.webp)
+![Closed chest with the E and G interaction prompt](images/closed-chest.png)
 
 *Look at a **closed** chest with this interaction prompt and press N to refill reservations. The screenshots show a German-language game UI; the mod has no language setting.*
 

@@ -1,6 +1,6 @@
 # Releasing the mod
 
-The release workflow is in `.github/workflows/release.yml`. It runs **only** for pushed version tags (`v*`), not for normal commits. A GitHub Release and its installable ZIP are published after the Lua tests, source checks, and package checks pass. An optional Nexus upload step runs for **future tags only when configured** as described below.
+The release workflow is in `.github/workflows/release.yml`. It runs **only** for pushed version tags (`v*`), not for normal commits. A GitHub Release with its installable ZIP is published after the Lua tests, source checks, package checks and PNG validation pass. The Nexus step uploads **only the mod ZIP** for future tags as described below.
 
 ## Build and inspect locally
 
@@ -9,6 +9,7 @@ From the repository root, run the Lua tests listed in [`TESTING.md`](TESTING.md)
 ```sh
 python3 tests/scripts/build-release.py --tag v0.20.0
 python3 tests/test_release_package.py
+python3 tests/test_gallery.py
 unzip -l dist/InventorySlotReservations-0.20.0.zip
 ```
 
@@ -38,3 +39,5 @@ When ready, set these in **GitHub → repository Settings → Secrets and variab
 - Variable `NEXUSMODS_FILE_ID`: `8048907`, the parent **File ID** of the initial main file on mod 26.
 
 Both the secret and variable were configured in GitHub Actions after the initial upload; secret values are not readable back from GitHub. Future version tags will upload the ZIP as a new version of that file. The workflow uses a pinned revision of the official Nexus action and passes the version from the tag, without the `v` prefix. A missing/invalid key or wrong ID makes the Nexus step fail **after** the GitHub Release has already been published. It does not retroactively upload the existing `v0.20.0` release. Review the first live update and Nexus-specific licensing/dependency fields before relying on unattended uploads. Never commit the local `.nexus.key` file.
+
+The Nexus Upload API key can publish **files**, not the mod page's description or images. The workflow does not upload screenshots to Nexus or attach them to the release ZIP. `images/title.png` is the banner in the GitHub README; the gallery PNGs remain in this repository for documentation. Edit the Nexus page description in its website editor; uploading a new ZIP does **not** update that text. Do not put a Nexus website session cookie in GitHub Secrets.
