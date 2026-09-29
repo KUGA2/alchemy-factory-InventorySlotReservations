@@ -59,3 +59,9 @@ To uninstall, disable the entry in `mods.txt` or remove only `Mods/InventorySlot
 The mod calls the native `TryExchangeInventorySlot` with a specific reserved destination, checks both inventories after each asynchronous exchange, and restores a dropped native filter without moving items. It never performs a post-transfer rollback. It stops if another slot changes unexpectedly. The game's UI sort button is disabled, **not** sorting invoked directly by another mod. Multiplayer support still needs implementation (including authority/synchronization) and testing; other chest types, concurrent inventory changes, future game builds, and every item's stack maximum remain unverified. Do not treat this as production-safe.
 
 For test setup, muted isolated-game launch, screenshots, save preparation, test commands and observed results, see [`tests/TESTING.md`](tests/TESTING.md).
+
+## License
+
+The original mod code and documentation in this repository are dedicated under [CC0 1.0 Universal](LICENSE), to the extent we hold the rights to them. No attribution is required. The `LICENSE` file is the unmodified [Creative Commons legal text](https://creativecommons.org/publicdomain/zero/1.0/legalcode.txt).
+
+This dedication does **not** cover Alchemy Factory's game assets visible in `images/`, or third-party software such as UE4SS and the game. Their respective rights remain with their owners.
