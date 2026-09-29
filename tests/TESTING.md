@@ -4,16 +4,16 @@ The tests described here cover the **current single-player implementation**, not
 
 ## Automated Lua checks (no game required)
 
-From the repository root, with `luajit` installed:
+From this Git repository's root (`InventorySlotReservations/`), with `luajit` installed:
 
 ```sh
 for test in slot_binding reservation_policy game_integration chestpull chestpull_integration; do
-    luajit "InventorySlotReservations/tests/$test.lua" || exit 1
+    luajit "tests/$test.lua" || exit 1
 done
-for source in InventorySlotReservations/Scripts/*.lua; do
+for source in Scripts/*.lua; do
     luajit -b "$source" "/tmp/$(basename "$source").luac" || exit 1
 done
-python3 -m json.tool InventorySlotReservations/mod.json >/dev/null
+python3 -m json.tool mod.json >/dev/null
 ```
 
 `chestpull.lua` tests quantities and randomized conservation/isolation; `chestpull_integration.lua` mocks delayed game inventory updates and negative paths. `game_integration.lua` checks filter removal and the marker. These tests **do not replace an in-game test**.
@@ -35,7 +35,7 @@ The helper takes the **isolated game root** and **isolated compatdata/3669570 di
 
 ```sh
 export PROTON="$HOME/.steam/steam/steamapps/common/Proton - Experimental/proton"
-InventorySlotReservations/tests/scripts/start-isolated-linux.sh \
+tests/scripts/start-isolated-linux.sh \
     "$HOME/.local/share/alchemyfactory-mod/selftest/game" \
     "$HOME/.local/share/alchemyfactory-mod/selftest/compatdata" \
     > "$HOME/isolated-alchemy-game.log" 2>&1
@@ -48,7 +48,7 @@ The paths above are **examples**, not required locations. Do not launch this scr
 In a **second terminal**, after the game's audio stream appears:
 
 ```sh
-InventorySlotReservations/tests/scripts/mute-game-linux.sh
+tests/scripts/mute-game-linux.sh
 wpctl status    # check the AlchemyFactory stream is muted
 ```
 
@@ -59,8 +59,8 @@ The helper searches the PipeWire/WirePlumber streams for exactly one `AlchemyFac
 Headless Gamescope publishes a PipeWire video node. With the game visible and still running:
 
 ```sh
-InventorySlotReservations/tests/scripts/screenshot-linux.sh /tmp/closed-chest.png
-InventorySlotReservations/tests/scripts/screenshot-linux.sh /tmp/open-inventory.png
+tests/scripts/screenshot-linux.sh /tmp/closed-chest.png
+tests/scripts/screenshot-linux.sh /tmp/open-inventory.png
 ```
 
 The helper discovers a uniquely named Gamescope node using `pw-dump`, then captures one PNG frame with `gst-launch-1.0`; if several matches exist, pass the node ID as a second argument. Check `pw-dump` if no node is found. For an X11/Xvfb run (not Gamescope), `DISPLAY=:99 import -window root /tmp/frame.png` is an alternative if ImageMagick is installed. You can also use the desktop's normal screenshot shortcut for a visible game. To make a GIF, capture a sequence of PNGs and encode with an image tool (e.g. `ffmpeg -framerate 5 -i 'frame-%03d.png' -vf 'fps=5,scale=800:-1:flags=lanczos' demo.gif`); never present still screenshots as transfer proof without checking the inventories/log. The README uses two cropped stills from the isolated run, not a GIF.

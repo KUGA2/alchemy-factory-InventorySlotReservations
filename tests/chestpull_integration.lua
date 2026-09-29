@@ -1,4 +1,5 @@
-package.path = "InventorySlotReservations/Scripts/?.lua;" .. package.path
+local root = (arg[0]:match("^(.*[/\\])") or "./") .. "../"
+package.path = root .. "Scripts/?.lua;" .. package.path
 
 local function fname(value) return { ToString = function() return value end } end
 local function slot(item, stack, filter)
@@ -85,7 +86,7 @@ function FindAllOf(class)
     error("unexpected class: " .. class)
 end
 
-dofile("InventorySlotReservations/Scripts/main.lua")
+dofile(root .. "Scripts/main.lua")
 assert(useKey and update)
 
 local function apply()

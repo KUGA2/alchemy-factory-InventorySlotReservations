@@ -1,4 +1,5 @@
-package.path = "InventorySlotReservations/Scripts/?.lua;" .. package.path
+local root = (arg[0]:match("^(.*[/\\])") or "./") .. "../"
+package.path = root .. "Scripts/?.lua;" .. package.path
 local Policy = require("reservation_policy")
 
 local policy = Policy.new()

@@ -26,6 +26,8 @@ This is an unofficial code mod, **not** a Steam Workshop blueprint. Back up `%LO
 
 You need a **compatible UE4SS installation that loads Lua mods for this game**. The tested setup used experimental UE4SS commit `44afb36d` via its `dwmapi.dll` proxy; another UE4SS release is not guaranteed to work. Follow [UE4SS installation guidance](https://docs.ue4ss.com/installation-guide.html) for your build. Do not replace an existing loader or its settings without backing them up.
 
+Once a release is published, use its `InventorySlotReservations-*.zip` **release asset** on [GitHub Releases](https://github.com/KUGA2/alchemy-factory-InventorySlotReservations/releases) for a ready-to-install mod folder. Extract its `InventorySlotReservations/` directory into `ue4ss/Mods/`. Do not confuse it with GitHub's automatically generated source-code archives, which also include developer tests and tooling.
+
 The game directory below is the folder containing `AlchemyFactory.exe` (Steam → game → Manage → Browse local files):
 
 ```text
@@ -59,6 +61,7 @@ To uninstall, disable the entry in `mods.txt` or remove only `Mods/InventorySlot
 The mod calls the native `TryExchangeInventorySlot` with a specific reserved destination, checks both inventories after each asynchronous exchange, and restores a dropped native filter without moving items. It never performs a post-transfer rollback. It stops if another slot changes unexpectedly. The game's UI sort button is disabled, **not** sorting invoked directly by another mod. Multiplayer support still needs implementation (including authority/synchronization) and testing; other chest types, concurrent inventory changes, future game builds, and every item's stack maximum remain unverified. Do not treat this as production-safe.
 
 For test setup, muted isolated-game launch, screenshots, save preparation, test commands and observed results, see [`tests/TESTING.md`](tests/TESTING.md).
+For creating release ZIPs and publishing tagged GitHub releases, see [`tests/RELEASING.md`](tests/RELEASING.md).
 
 ## License
 

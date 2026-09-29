@@ -1,4 +1,5 @@
-package.path = "InventorySlotReservations/Scripts/?.lua;" .. package.path
+local root = (arg[0]:match("^(.*[/\\])") or "./") .. "../"
+package.path = root .. "Scripts/?.lua;" .. package.path
 local SlotBinding = require("slot_binding")
 local function name(value) return { ToString = function() return value end } end
 local slots = {

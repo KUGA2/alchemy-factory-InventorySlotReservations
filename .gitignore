@@ -3,11 +3,14 @@
 /compatdata/
 /selftest/
 /tests/captures/
+/dist/
 *.sav
 
 # Generated logs and compiled Lua bytecode.
 *.log
 *.luac
+__pycache__/
+*.pyc
 
 # Editor/OS leftovers.
 *~

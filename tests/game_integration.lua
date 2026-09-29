@@ -1,4 +1,5 @@
-package.path = "InventorySlotReservations/Scripts/?.lua;" .. package.path
+local root = (arg[0]:match("^(.*[/\\])") or "./") .. "../"
+package.path = root .. "Scripts/?.lua;" .. package.path
 
 local function fname(value) return { ToString = function() return value end } end
 local slot = { ItemName = fname("wood"), ItemStack = 2, SlotFilterName = fname("None") }
@@ -74,7 +75,7 @@ function FindAllOf(name)
     error("unexpected widget class: " .. tostring(name))
 end
 
-dofile("InventorySlotReservations/Scripts/main.lua")
+dofile(root .. "Scripts/main.lua")
 assert(click and inventoryUpdate and circleVisibility)
 assert(boundKey == Key.N)
 click()
@@ -102,7 +103,7 @@ circleVisibility({ get = function() return ring end }, visibility)
 assert(visibility.value == 2)
 -- A Lua restart must rediscover persisted filters before a later drag clears them.
 slot.ItemName, slot.ItemStack, slot.SlotFilterName = fname("wood"), 2, fname("wood")
-dofile("InventorySlotReservations/Scripts/main.lua")
+dofile(root .. "Scripts/main.lua")
 visibility.value = 2
 circleVisibility({ get = function() return ring end }, visibility)
 assert(visibility.value == 0 and sortButton.enabled == false)
@@ -121,6 +122,6 @@ assert(slot.ItemStack == 2 and slot.SlotFilterName:ToString() == "None",
 widget.hovered = true
 -- The key can be changed through config.lua without changing the mod script.
 package.loaded.config = { toggleKey = "F10" }
-dofile("InventorySlotReservations/Scripts/main.lua")
+dofile(root .. "Scripts/main.lua")
 assert(boundKey == Key.F10)
 print("Game integration mock checks passed")
