@@ -65,6 +65,6 @@ For creating release ZIPs and publishing tagged GitHub releases, see [`tests/REL
 
 ## License
 
-The original mod code and documentation in this repository are dedicated under [CC0 1.0 Universal](LICENSE), to the extent we hold the rights to them. No attribution is required. The `LICENSE` file is the unmodified [Creative Commons legal text](https://creativecommons.org/publicdomain/zero/1.0/legalcode.txt).
+The original mod code and documentation in this repository are dedicated under [CC0 1.0 Universal](LICENSE).
 
 This dedication does **not** cover Alchemy Factory's game assets visible in `images/`, or third-party software such as UE4SS and the game. Their respective rights remain with their owners.
