@@ -1,6 +1,6 @@
 # Releasing the mod
 
-The release workflow is in `.github/workflows/release.yml`. It runs **only** for pushed version tags (`v*`), not for normal commits. A GitHub Release and its installable ZIP are published after the Lua tests, source checks, and package checks pass. There is **no Nexus Mods upload** in this workflow yet.
+The release workflow is in `.github/workflows/release.yml`. It runs **only** for pushed version tags (`v*`), not for normal commits. A GitHub Release and its installable ZIP are published after the Lua tests, source checks, and package checks pass. An optional Nexus upload step runs for **future tags only when configured** as described below.
 
 ## Build and inspect locally
 
@@ -28,6 +28,13 @@ Replace `v0.20.0` with the version in `mod.json`. The builder rejects a mismatch
 
 Tagging is an intentional public release action. **Do not push a tag** until the mod and documentation are ready for public distribution. If the workflow fails, fix the issue on `master` and choose a new version/tag rather than silently replacing an already published version.
 
-## Nexus Mods (not yet automated)
+## Nexus Mods (opt-in updates)
 
-Alchemy Factory has a [Nexus Mods game page](https://www.nexusmods.com/games/alchemyfactory/mods). Create the first mod page and upload the first ZIP there manually. The [official Nexus upload action](https://github.com/Nexus-Mods/upload-action) updates an **existing** file and requires its file ID; this is why the current GitHub workflow does not upload there. Once the first file is published and you know its file ID, store the Nexus API key as a GitHub Actions **secret**, and the file ID as a repository **variable**. Never put a key into Git, an archive, or an issue. Review the first live upload and site-specific licensing/dependency fields before enabling automated Nexus updates.
+The [Nexus listing for this mod](https://www.nexusmods.com/alchemyfactory/mods/26) has **mod ID 26**. The [official Nexus upload action](https://github.com/Nexus-Mods/upload-action) adds versions to an **existing file**; mod ID 26 is **not** its required `file_id`. Upload the first ZIP manually on Nexus, if not already done. Find that file's **File ID** in the Files tab with the **Advanced** option enabled, or on the Manage Files page (see the action's [File ID instructions](https://github.com/Nexus-Mods/upload-action#how-to-find-the-file-id--mod-id)). Do not guess or use the mod ID as the file ID.
+
+When ready, set these in **GitHub → repository Settings → Secrets and variables → Actions**:
+
+- Secret `NEXUSMODS_API_KEY`: create a personal key in [Nexus API settings](https://www.nexusmods.com/settings/api-keys). Enter it in the GitHub secret form; never paste it into chat, Git, an issue, an archive, or a command that prints it.
+- Variable `NEXUSMODS_FILE_ID`: the numeric **File ID** of the initial main file on mod 26, not `26` unless Nexus actually gives it that File ID.
+
+Only when `NEXUSMODS_FILE_ID` is set will future version tags upload the ZIP as a new version of that file. The workflow uses a pinned revision of the official Nexus action and passes the version from the tag, without the `v` prefix. Configure **both** values before tagging. A missing/invalid key or wrong ID makes the Nexus step fail **after** the GitHub Release has already been published; it will not silently publish to a different mod. It does not retroactively upload the existing `v0.20.0` release. Review the first live update and Nexus-specific licensing/dependency fields before relying on unattended uploads.

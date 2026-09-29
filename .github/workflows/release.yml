@@ -46,3 +46,19 @@ jobs:
           gh release create "$RELEASE_TAG" dist/InventorySlotReservations-*.zip \
             --repo "$GITHUB_REPOSITORY" --verify-tag \
             --title "Inventory Slot Reservations $RELEASE_TAG" --generate-notes
+      - name: Determine Nexus version
+        if: ${{ vars.NEXUSMODS_FILE_ID != '' }}
+        id: nexus_version
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: echo "value=${RELEASE_TAG#v}" >> "$GITHUB_OUTPUT"
+      - name: Upload new version to Nexus Mods
+        if: ${{ vars.NEXUSMODS_FILE_ID != '' }}
+        uses: Nexus-Mods/upload-action@c96019556046053aa26044b44396cd38929daf23 # v1.0.0-beta.10
+        with:
+          api_key: ${{ secrets.NEXUSMODS_API_KEY }}
+          file_id: ${{ vars.NEXUSMODS_FILE_ID }}
+          filename: dist/InventorySlotReservations-${{ steps.nexus_version.outputs.value }}.zip
+          version: ${{ steps.nexus_version.outputs.value }}
+          category: main
+          update_mod_version: 'true'
